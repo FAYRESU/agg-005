@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Person Form</title>
+</head>
+<body>
+    <?php
+    $name = '';
+    $age = '';
+    $street = '';
+    $city = '';
+    $state = '';
+    $postalCode = '';
+    $id = '';
+
+    if (isset($_GET['id'])) {
+        session_start();
+        $people = $_SESSION['people'];
+        $id = $_GET['id'];
+        $person = $people[$id];
+        $name = $person->getName();
+        $age = $person->getAge();
+        $address = $person->getAddress();
+        $street = $address->getStreet();
+        $city = $address->getCity();
+        $state = $address->getState();
+        $postalCode = $address->getPostalCode();
+    }
+    ?>
+    <form action="process.php" method="post">
+        <input type="hidden" name="id" value="<?php echo $id; ?>">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="<?php echo $name; ?>" required><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" value="<?php echo $age; ?>" required><br>
+
+        <label for="street">Street:</label>
+        <input type="text" id="street" name="street" value="<?php echo $street; ?>" required><br>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" value="<?php echo $city; ?>" required><br>
+
+        <label for="state">State:</label>
+        <input type="text" id="state" name="state" value="<?php echo $state; ?>" required><br>
+
+        <label for="postalCode">Postal Code:</label>
+        <input type="text" id="postalCode" name="postalCode" value="<?php echo $postalCode; ?>" required><br>
+
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
